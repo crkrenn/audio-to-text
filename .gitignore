@@ -1,1 +1,3 @@
+gcp-service-account-key.json
 venv*
+__pycache__

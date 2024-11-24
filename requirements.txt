@@ -1,4 +1,18 @@
-SpeechRecognition==3.10.1
+# Core dependencies
+SpeechRecognition==3.10.0
 pydub==0.25.1
-# Required by pydub for mp3 support
-ffmpeg-python==0.2.0
+google-cloud-speech==2.24.1
+google-cloud-storage==2.14.0
+tqdm==4.66.1
+
+# Audio processing dependencies
+PyAudio==0.2.14  # Required for microphone input if needed
+ffmpeg-python==0.2.0  # For audio file processing
+
+# Testing dependencies
+pytest==7.4.3
+pytest-mock==3.12.0
+
+# Optional: Development tools
+black==23.11.0  # Code formatting
+pylint==3.0.2   # Code linting
