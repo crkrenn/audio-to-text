@@ -91,24 +91,65 @@ class TestAudioTranscription:
         self, test_file, test_output, gcp_credentials, mock_args
     ):
         """Test transcription using the GCP API."""
-        # Set up mock arguments
+        # Set up mock arguments with all required attributes
         args = Mock()
         args.api = "gcp"
         args.files = [test_file]
+        args.timestamps = False  # Add the timestamps parameter
+        args.estimate_only = False  # Add estimate_only parameter
         mock_args.return_value = args
+
+        # Add logging to help debug issues
+        print(f"\nDebug: Test file path: {test_file}")
+        print(f"Debug: Expected output path: {test_output}")
 
         # Mock tqdm to avoid progress bar in tests
         with patch("tqdm.tqdm") as mock_progress:
             mock_progress.return_value.__enter__.return_value = Mock()
 
-            # Run transcription
-            audio_to_text.main()
+            # Add error capture
+            try:
+                # Run transcription
+                audio_to_text.main()
 
-            # Check output file exists and contains text
-            assert os.path.exists(test_output), "Output file was not created"
-            with open(test_output, "r", encoding="utf-8") as f:
-                content = f.read()
-            assert content.strip(), "Output file is empty"
+                # Check output file exists and contains text
+                assert os.path.exists(test_output), "Output file was not created"
+
+                # Verify file content
+                with open(test_output, "r", encoding="utf-8") as f:
+                    content = f.read()
+                    print(f"Debug: Output file content length: {len(content)}")
+                    assert content.strip(), "Output file is empty"
+
+            except Exception as e:
+                print(f"Debug: Exception occurred during test: {str(e)}")
+                print(f"Debug: Current working directory: {os.getcwd()}")
+                # List files in current directory
+                print("Debug: Files in current directory:", os.listdir("."))
+                raise
+
+    # def test_gcp_api_transcription(
+    #     self, test_file, test_output, gcp_credentials, mock_args
+    # ):
+    #     """Test transcription using the GCP API."""
+    #     # Set up mock arguments
+    #     args = Mock()
+    #     args.api = "gcp"
+    #     args.files = [test_file]
+    #     mock_args.return_value = args
+
+    #     # Mock tqdm to avoid progress bar in tests
+    #     with patch("tqdm.tqdm") as mock_progress:
+    #         mock_progress.return_value.__enter__.return_value = Mock()
+
+    #         # Run transcription
+    #         audio_to_text.main()
+
+    #         # Check output file exists and contains text
+    #         assert os.path.exists(test_output), "Output file was not created"
+    #         with open(test_output, "r", encoding="utf-8") as f:
+    #             content = f.read()
+    #         assert content.strip(), "Output file is empty"
 
     def test_unsupported_file_format(self):
         """Test handling of unsupported file formats."""
@@ -197,6 +238,8 @@ class TestIntegration:
         args = Mock()
         args.api = "free"
         args.files = [test_file]
+        args.timestamps = False  # Add the timestamps parameter
+        args.estimate_only = False  # Add estimate_only parameter
         mock_args.return_value = args
 
         audio_to_text.main()
@@ -213,6 +256,8 @@ class TestIntegration:
         args = Mock()
         args.api = "gcp"
         args.files = [test_file]
+        args.timestamps = False  # Add the timestamps parameter
+        args.estimate_only = False  # Add estimate_only parameter
         mock_args.return_value = args
 
         audio_to_text.main()

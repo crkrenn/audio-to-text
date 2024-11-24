@@ -1,4 +1,5 @@
 # voice-to-text
+
 Simple python script for converting mp3 to text.
 
 This script has been tested with python3.12 on os x. The pytests pass, and command line tests with both the free and paid apis work.
@@ -8,6 +9,8 @@ Using the paid api requires a google cloud service account and `gcp-service-acco
 Please contact the author with any questions. Pull requests are welcomed!
 
 -Chris Krenn
+
+PS. I apologize for not linting better.
 
 Example generic `gcp-service-account-key.json` file:
 {
