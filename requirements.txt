@@ -1,0 +1,4 @@
+SpeechRecognition==3.10.1
+pydub==0.25.1
+# Required by pydub for mp3 support
+ffmpeg-python==0.2.0
