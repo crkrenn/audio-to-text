@@ -11,6 +11,7 @@ Please contact the author with any questions. Pull requests are welcomed!
 -Chris Krenn
 
 PS. I apologize for not linting better.
+PPS. And, I would be remiss if I did not thank my colleague Claude A. I. for his help in writing the code.
 
 Example generic `gcp-service-account-key.json` file:
 {
